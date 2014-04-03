@@ -1,10 +1,41 @@
-
-
 <template name="home">
   <div class="container">
     <div class="jumbotron">
-      <h1>{{welcome}}</h1>
-      <button class="clicky" type="button">Clicky</button>
+      <h5>Welcome to the marvelous</h5>
+      <h2>Peer to Peer Pool Scanner</h2>
+      <div class="input-group col-xs-6">
+        <input type="text" class="form-control" placeholder="Node Address">
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="button">Scan</button>
+        </span>
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <table class="table">
+        {{#each pools}}
+        <tr>
+          <th>{{seed}}</th>
+          <td>
+            <table>
+              {{#each nodes}}
+              {{>node}}
+              {{/each}}
+            </table>
+          </td>
+        </tr>
+        {{/each}}
+      </table>
     </div>
   </div>
+</template>
+
+<template name="node">
+  <tr>
+    <td><div class="node blast">{{this}}</div></td>
+  </tr>
+</template>
+
+
+<template name="loading">
+  <h3>Loading...</h3>
 </template>

@@ -1,3 +1,3 @@
-Meteor.publish('posts', function() {
-  return Posts.find();
+Meteor.publish('pools', function(ip) {
+  return Pools.find({seed: ip});
 });

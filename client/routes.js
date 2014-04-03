@@ -5,7 +5,14 @@ Router.configure({
 Router.map(function() {
   this.route('home', {
     path: '/',
-    template: 'home'
+    template: 'home',
+    action: function() {
+      if(this.ready()) {
+        this.render();
+      } else {
+        this.render('loading');
+      }
+    }
   });
 });
 
