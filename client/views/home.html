@@ -4,17 +4,22 @@
       <h5>Welcome to the marvelous</h5>
       <h2>Peer to Peer Pool Scanner</h2>
       <div class="input-group col-xs-6">
-        <input type="text" class="form-control" placeholder="Node Address">
+        <input type="text" class="form-control" id="ip" placeholder="Node Address">
+      </div>
+      <div class="input-group col-xs-6">
+        <input type="text" class="form-control" id="port" placeholder="Port">
         <span class="input-group-btn">
           <button class="btn btn-primary" id="drk" type="button">DRK</button>
           <button class="btn btn-primary" id="btc" type="button">BTC</button>
           <button class="btn btn-primary" id="fst" type="button">FST</button>
+          <button class="btn btn-primary" id="nuke" type="button">Nuke</button>
         </span>
       </div>
     </div>
     <div class="col-xs-12">
       <table class="table">
         {{#each pools}}
+        {{#if found}}
         <tr>
           <th>{{seed}}</th>
           <td>
@@ -25,6 +30,11 @@
             </table>
           </td>
         </tr>
+        {{else}}
+          <tr>
+            <th>Nothin' found, matey... arr</th>
+          </tr>
+        {{/if}}
         {{/each}}
       </table>
     </div>
