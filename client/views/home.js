@@ -15,8 +15,9 @@ Template.node.rendered = function() {
 Template.home.events({
   'click button': function(event, template) {
     var ip = $('input').val();
+    var currency = $(event.target).attr('id');
     Session.set('ip', ip);
-    Meteor.call('scan', ip, function(err, res) {
+    Meteor.call('scan', ip, currency, function(err, res) {
       if(!err) {
         console.log('boop')
       }

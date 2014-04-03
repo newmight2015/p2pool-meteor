@@ -1,7 +1,14 @@
+var currencies = {
+  'drk': 7903,
+  'fst': 5150,
+  'btc': 9332
+};
+
+
 Meteor.methods({
-  scan: function(ip) {
+  scan: function(ip, currency) {
     //todo: change port based on currency
-    var port = 7903;
+    var port = currencies[currency];
     HTTP.get('http://'+ip+':'+port+'/peer_addresses', function(err, res) {
       if(!err && res.data) {
         var nodes = res.data.split(' ');
