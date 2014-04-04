@@ -1,3 +1,3 @@
 Meteor.publish('pools', function(ip) {
-  return Pools.find({seed: ip});
+  return Pools.find();
 });

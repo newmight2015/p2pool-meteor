@@ -9,32 +9,29 @@
       <div class="input-group col-xs-6">
         <input type="text" class="form-control" id="port" placeholder="Port">
         <span class="input-group-btn">
-          <button class="btn btn-primary" id="drk" type="button">DRK</button>
-          <button class="btn btn-primary" id="btc" type="button">BTC</button>
-          <button class="btn btn-primary" id="fst" type="button">FST</button>
-          <button class="btn btn-primary" id="nuke" type="button">Nuke</button>
+          <button class="btn btn-primary scan" id="drk" type="button">DRK</button>
+          <button class="btn btn-primary scan" id="btc" type="button">BTC</button>
+          <button class="btn btn-primary scan" id="fst" type="button">FST</button>
         </span>
       </div>
     </div>
     <div class="col-xs-12">
-      <table class="table">
+      <table class="table table-striped">
         {{#each pools}}
-        {{#if found}}
+        <tr>
+          <th><div class="label label-info">{{currency}}</div></th>
+        </tr>
         <tr>
           <th>{{seed}}</th>
           <td>
             <table>
+              <tr><td><button type="button" class="ping">Ping</button></td></tr>
               {{#each nodes}}
               {{>node}}
               {{/each}}
             </table>
           </td>
         </tr>
-        {{else}}
-          <tr>
-            <th>Nothin' found, matey... arr</th>
-          </tr>
-        {{/if}}
         {{/each}}
       </table>
     </div>
@@ -43,7 +40,8 @@
 
 <template name="node">
   <tr>
-    <td><div class="node blast">{{this}}</div></td>
+    <td><div class="node blast">{{ip}}</div></td>
+    <td><div class={{pingColored}}>{{ping}}</div></td>
   </tr>
 </template>
 

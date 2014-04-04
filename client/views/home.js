@@ -1,35 +1,49 @@
 Template.home.helpers({
   pools: function() {
-    var pool = Pools.find().fetch();
-    return pool;
+    return Pools.find({},{sort:{ts: -1}}).fetch();
   }
 });
 
+Template.node.helpers({
+  pingColored: function() {
+    if(this.ping === 0) {
+      return 'label label-default'
+    } else if(this.ping < 200) {
+      return 'label label-success'
+    } else if(this.ping > 200 && this.ping < 400) {
+      return 'label label-warning'
+    } else {
+      return 'label label-danger'
+    }
+  }
+})
+
 Template.node.rendered = function() {
   var self = this;
-  ping(this.data, function(err, res) {
   Meteor.setTimeout(function() {
-    $(self.find('.blast')).append('  <span class="label label-default">'+res+'</span>');
     $(self.find('.blast')).removeClass('blast');
   }, 500);
-  });
 };
 
 Template.home.events({
-  'click button': function(event, template) {
-    if($(event.target).attr('id') === 'nuke') {
-      Meteor.call('nuke');
-    } else {
-      var ip = $('#ip').val();
-      var port = $('#port').val();
-      var currency = $(event.target).attr('id');
-      Session.set('ip', ip);
-      Meteor.call('scan', ip, port, currency, function(err, res) {
-        if(!err) {
-          console.log('boop')
-        }
+  'click .scan': function(event, template) {
+    var ip = $('#ip').val();
+    var port = $('#port').val();
+    var currency = $(event.target).attr('id');
+    Session.set('ip', ip);
+    Meteor.call('scan', ip, port, currency, function(err, res) {
+      if(!err) {
+        console.log('boop')
+      }
+    });
+  },
+  'click .ping': function(event, template) {
+    var self = this;
+    _.each(this.nodes, function(node) {
+      ping(node.ip, function(err, res) {
+        Meteor.call('updatePool', self._id, node.ip, res);
       });
-    }
+    })
   }
 });
 
